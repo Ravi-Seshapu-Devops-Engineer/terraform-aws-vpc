@@ -17,4 +17,5 @@ locals {
       Name = "${var.project}-${var.environment}"
     },
     var.igw_tags
+  )
 }
