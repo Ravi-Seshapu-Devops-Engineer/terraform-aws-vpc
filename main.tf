@@ -8,3 +8,10 @@ resource "aws_vpc" "main" {
     Name = ""
   }
 }
+
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = 
+}
