@@ -17,11 +17,13 @@ resource "aws_vpc_peering_connection" "foo" {
   requester {
     allow_remote_vpc_dns_resolution = true
   }
+
+  tags = merge(
+  local.common_tags, "${var.project}-${var.environment}-default"
+  )
 }
 
-tags = merge(
-  local.common_tags, "${var.project}-${var.environment}-default"
-)
+
 
 resource "aws_route" "public_peering" {
   count = is_peering_required ? 1 : 0
