@@ -6,7 +6,7 @@ resource "aws_vpc_peering_connection" "default" {
   peer_vpc_id   = data.aws_vpc.default.id
 
   #requestor
-  vpc_id        = data.aws_vpc.main.id
+  vpc_id        = aws_vpc.main.id
 
   auto_accept = true
 
