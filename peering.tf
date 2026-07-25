@@ -19,8 +19,9 @@ resource "aws_vpc_peering_connection" "default" {
   }
 
   tags = merge(
-  local.common_tags, "${var.project}-${var.environment}-default"
-  )
+  local.common_tags,{
+    Name = "${var.project}-${var.environment}-default"
+  } )
 }
 
 
