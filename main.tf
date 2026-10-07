@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
 
   tags = local.vpc_final_tags
 
-  
+
 }
 
 # Internet gatweway
@@ -132,7 +132,7 @@ tags = merge(
 #nat gateway
 resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public[0].id # we are creating in us-east-1a availability zone
+  subnet_id     = aws_subnet.Public[0].id  #we are creating in us-east-1a availability zone
 
   tags = merge(
     local.common_tags,
@@ -159,4 +159,11 @@ resource "aws_route" "database" {
   route_table_id            = aws_route_table.database.id
   destination_cidr_block    = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.main.id
+}
+
+#subnet association with Route tables
+resource "aws_route_table_association" "public" {
+  count = length(var.public_subnet_cidrs)
+  subnet_id      = aws_subnet.Public.id
+  route_table_id = aws_route_table.public.id
 }
